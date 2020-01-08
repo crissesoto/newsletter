@@ -1,0 +1,17 @@
+const expresss = require('express');
+const bodyParser = require('body-parser');
+const request = require('request');
+const port = 3000;
+
+const app = expresss();
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', function(req, res) {
+	res.sendFile(__dirname + '/index.html');
+});
+
+app.post('/', function(req, res) {
+	console.log(req.body);
+
+	app.send('file sent!');
+});
