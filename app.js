@@ -15,3 +15,7 @@ app.post('/', function(req, res) {
 
 	app.send('file sent!');
 });
+
+app.listen(port, function() {
+	console.log(`Server started at port: ${port}`);
+});
