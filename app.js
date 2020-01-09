@@ -1,11 +1,10 @@
 const expresss = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const port = 8080;
+const port = 3000;
 
 const app = expresss();
 app.use(bodyParser.urlencoded({ extended: true }));
-
 // static files
 app.use(expresss.static('public'));
 
@@ -14,6 +13,7 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/signup.html');
 });
 
+// Post data to mailchimp
 app.post('/', function(req, res) {
 	console.log(req.body);
 	const data = req.body;
@@ -47,10 +47,11 @@ app.post('/', function(req, res) {
 		headers: {
 			Authorization: `crisse ${APIkey}`
 		},
-		body: ''
+		body: jsonData
 	};
 
 	request(options, function(error, response, body) {
+		console.log(response.statusCode);
 		if (error) {
 			res.sendFile(__dirname + '/failure.html');
 		}
@@ -68,6 +69,6 @@ app.post('/failure.html', function(req, res) {
 });
 
 // server port
-app.listen(port, function() {
+app.listen(process.env.PORT || port, function() {
 	console.log(`Server started at port: ${port}`);
 });
