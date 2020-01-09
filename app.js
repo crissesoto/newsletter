@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // static files
 app.use(expresss.static('public'));
 
+// homepage route
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/signup.html');
 });
@@ -61,6 +62,12 @@ app.post('/', function(req, res) {
 	});
 });
 
+// failure route
+app.post('/failure.html', function(req, res) {
+	res.redirect('/');
+});
+
+// server port
 app.listen(port, function() {
 	console.log(`Server started at port: ${port}`);
 });
